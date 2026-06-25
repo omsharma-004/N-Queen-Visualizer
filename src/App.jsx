@@ -499,31 +499,92 @@ export default function NQueens() {
         .nav-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(180,140,40,0.25); border-color: rgba(180,140,40,0.7) !important; }
         .nav-btn:active { transform: translateY(0); }
 
-        /* ── PRINT / PDF REPORT ── */
-        #print-report { display: none; }
-        @media print {
-          @page { margin: 26mm 14mm 20mm 14mm; }
-          body * { visibility: hidden; }
-          #print-report, #print-report * { visibility: visible; }
-          #print-report {
-            display: block !important;
-            position: absolute; left: 0; top: 0; width: 100%;
-          }
-          .pr-header {
-            position: fixed; top: -18mm; left: 0; right: 0;
-            font-family: 'Inter', sans-serif; font-size: 9px; color: #8a6314;
-            display: flex; justify-content: space-between;
-            border-bottom: 1px solid #C8961E; padding-bottom: 4px;
-          }
-          .pr-footer {
-            position: fixed; bottom: -14mm; left: 0; right: 0;
-            font-family: 'Inter', sans-serif; font-size: 8.5px; color: #8a7350;
-            display: flex; justify-content: space-between;
-            border-top: 1px solid #C8961E; padding-top: 4px;
-          }
-          .pr-page-break { page-break-before: always; }
-          .pr-trace-row:nth-child(even) { background: #F5F5F5; }
-        }
+       /* ── PRINT / PDF REPORT ── */
+#print-report {
+  display: none;
+}
+
+@media print {
+
+  @page {
+    size: A4;
+    margin: 28mm 16mm 28mm 16mm;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #print-report,
+  #print-report * {
+    visibility: visible;
+  }
+
+  #print-report {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding-top: 18mm;
+    padding-bottom: 18mm;
+  }
+
+  .pr-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: #8a6314;
+
+    display: flex;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #C8961E;
+    padding-bottom: 4px;
+  }
+
+  .pr-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 8.5px;
+    color: #8a7350;
+
+    display: flex;
+    justify-content: space-between;
+
+    border-top: 1px solid #C8961E;
+    padding-top: 4px;
+  }
+
+  table {
+    page-break-inside: auto;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  .pr-trace-row {
+    page-break-inside: avoid;
+  }
+
+  .pr-trace-row:nth-child(even) {
+    background: #F5F5F5;
+  }
+}
       `}</style>
 
       {/* ══ BACKGROUND: subtle chess watermark ══ */}
@@ -1010,7 +1071,16 @@ export default function NQueens() {
       {/* ════════════════════════════════════════════════════
           PRINT REPORT — professional technical document
       ════════════════════════════════════════════════════ */}
-      <div id="print-report" style={{ fontFamily: "'Inter', sans-serif", color: "#1a1a1a", fontSize: 12 }}>
+      <div
+  id="print-report"
+  style={{
+    fontFamily: "'Inter', sans-serif",
+    color: "#1a1a1a",
+    fontSize: 12,
+    paddingTop: "18mm",
+    paddingBottom: "18mm",
+  }}
+>
 
         <div className="pr-header">
           <span>N-Queens Solver Report</span>
